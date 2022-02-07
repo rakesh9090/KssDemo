@@ -13,6 +13,13 @@ import androidx.viewbinding.ViewBinding
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
+/**
+ * Created by Rakesh Sah
+ *
+ *
+ *  ViewBindingDelegate-KT contains a helper delegate for auto-clearing
+ *  the binding variable when the Fragment view is destroyed.
+ */
 class ViewBindingDelegate<T : ViewBinding>(
     val fragment: Fragment,
     private val viewBindingFactory: ((View) -> T)? = null
@@ -66,9 +73,24 @@ class ViewBindingDelegate<T : ViewBinding>(
     }
 }
 
+/**
+ * Extension function for fragment
+ *
+ * syntax:
+ * class SecondFragment : Fragment(R.layout.fragment_second) {
+    private val binding by viewBindings(FragmentSecondBinding::bind)
+
+    onCreateView and onDestroyView are no more required and can be deleted.
+    ViewBindingDelegate will create and destroy binding by itself
+ */
 fun <T : ViewBinding> Fragment.viewBindings(viewBindingFactory: ((View) -> T)? = null) =
     ViewBindingDelegate(this, viewBindingFactory)
 
+/**
+ * Extension function for Activity
+ *
+ * private val binding by viewBindings(ActivityMainBinding::inflate)
+ */
 
 inline fun <T : ViewBinding> AppCompatActivity.viewBindings(
     crossinline bindingInflater: (LayoutInflater) -> T
@@ -77,6 +99,14 @@ inline fun <T : ViewBinding> AppCompatActivity.viewBindings(
         bindingInflater.invoke(layoutInflater)
     }
 
+/**
+ * Extension function for RecyclerView ViewHolder
+ *
+ * override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    return ViewHolder(parent.viewBindings(ItemFaqBinding::inflate))
+    }
+ *
+ */
 
 inline fun <T : ViewBinding> ViewGroup.viewBindings(
     crossinline bindingInflater: (LayoutInflater, ViewGroup, Boolean) -> T,
