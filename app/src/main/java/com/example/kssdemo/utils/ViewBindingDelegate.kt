@@ -105,7 +105,6 @@ inline fun <T : ViewBinding> AppCompatActivity.viewBindings(
  * override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
     return ViewHolder(parent.viewBindings(ItemFaqBinding::inflate))
     }
- *
  */
 
 inline fun <T : ViewBinding> ViewGroup.viewBindings(
