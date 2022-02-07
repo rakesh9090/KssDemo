@@ -91,7 +91,6 @@ fun <T : ViewBinding> Fragment.viewBindings(viewBindingFactory: ((View) -> T)? =
  *
  * private val binding by viewBindings(ActivityMainBinding::inflate)
  */
-
 inline fun <T : ViewBinding> AppCompatActivity.viewBindings(
     crossinline bindingInflater: (LayoutInflater) -> T
 ) =
@@ -106,7 +105,6 @@ inline fun <T : ViewBinding> AppCompatActivity.viewBindings(
     return ViewHolder(parent.viewBindings(ItemFaqBinding::inflate))
     }
  */
-
 inline fun <T : ViewBinding> ViewGroup.viewBindings(
     crossinline bindingInflater: (LayoutInflater, ViewGroup, Boolean) -> T,
     attachToParent: Boolean = false
